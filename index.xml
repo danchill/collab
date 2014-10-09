@@ -25,6 +25,7 @@
 		
 		<!-- FRAME COMMUNICATION -->
 		<script>var DAEMON_RECEIVER_ID = "root";</script>
+		
 		<script src="https://helpmemarch.org/communicate.js"></script>
 		
 		<!-- PLUGINS -->
