@@ -1,0 +1,1005 @@
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+<ModulePrefs title="Toyota Collaborator">
+        <Require feature="rpc" />
+        <Require feature="views" />
+        <Require feature="locked-domain" />
+</ModulePrefs>
+<Content type="html"><![CDATA[  
+
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="https://securegh.toyota.com/app/css/collaborator.styles.css" />
+		<link rel="stylesheet" type="text/css" href="https://securegh.toyota.com/app/css/collaborator.icons.css" />
+		<link rel="stylesheet" type="text/css" href="https://securegh.toyota.com/app/css/collaborator.carousels.css" />
+		<link rel="stylesheet" type="text/css" href="https://securegh.toyota.com/app/css/collaborator.preloader.css" />
+		<link rel="stylesheet" type="text/css" href="https://securegh.toyota.com/app/css/collaborator.fonts.css" />
+		<link rel="stylesheet" type="text/css" href="https://securegh.toyota.com/app/css/collaborator.coachmarks.css" />
+		<link rel="stylesheet" type="text/css" href="https://securegh.toyota.com/app/css/collaborator.schedulehangout.css" />
+		<link rel="stylesheet" type="text/css" href="https://securegh.toyota.com/app/css/tempstyles.css" />
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<script src="https://plus.google.com/hangouts/_/api/v1/hangout.js"></script>
+		<script src="https://apis.google.com/js/client:plusone.js"></script>
+		
+		<!-- FRAME COMMUNICATION -->
+		<script>var DAEMON_RECEIVER_ID = "root";</script>
+		<script src="https://securegh.toyota.com/app/scripts/collaborator.communicate.js"></script>
+		
+		<!-- PLUGINS -->
+		<script src="https://securegh.toyota.com/app/scripts/vendor/jquery.easing.js"></script>
+		<script src="https://securegh.toyota.com/app/scripts/vendor/jquery.path.js"></script>
+		<script src="https://securegh.toyota.com/app/scripts/vendor/jquery.imgpreload.min.js"></script>
+		<script src="https://securegh.toyota.com/app/scripts/vendor/jquery.scale.js"></script>
+		<script src="https://securegh.toyota.com/app/scripts/vendor/moment.js"></script>
+		<script src="https://securegh.toyota.com/app/scripts/vendor/modernizr.js"></script>
+		<script src="https://securegh.toyota.com/app/scripts/vendor/jquery-ui-1.10.3.custom.min.js"></script>
+		<script src="https://securegh.toyota.com/app/scripts/vendor/jquery.ui.timepicker.js"></script>
+		<script src="https://securegh.toyota.com/app/scripts/vendor/jquery.blockUI.js"></script>
+		<script src="https://securegh.toyota.com/app/scripts/vendor/jquery.dd.min.js"></script>
+		<script src="https://securegh.toyota.com/app/scripts/vendor/jstz-1.0.4.min.js"></script>
+		<script src="https://cdn.firebase.com/v0/firebase.js"></script>
+
+		
+		<!-- DATA -->
+		<script src="https://securegh.toyota.com/app/data/collaborator.layermap.js"></script>
+		<script src="https://securegh.toyota.com/app/data/collaborator.trimdefaults.js"></script>
+		<script src="https://securegh.toyota.com/app/data/collaborator.baseconfig.js"></script>
+		
+		<!-- FUNCTION -->
+		<script src="https://securegh.toyota.com/app/scripts/collaborator.utils.js"></script>
+		<script src="https://securegh.toyota.com/app/scripts/collaborator.setup.js"></script>
+		<script src="https://securegh.toyota.com/app/scripts/collaborator.detector.js"></script>
+		<script src="https://securegh.toyota.com/app/scripts/collaborator.translator.js"></script>
+		<script src="https://securegh.toyota.com/app/scripts/collaborator.environment.js"></script>
+		<script src="https://securegh.toyota.com/app/scripts/collaborator.interface.js"></script>
+		<script src="https://securegh.toyota.com/app/scripts/collaborator.browser.js"></script>
+		<script src="https://securegh.toyota.com/app/scripts/collaborator.views.js"></script>
+		<script src="https://securegh.toyota.com/app/scripts/collaborator.notifications.js"></script>
+		<script src="https://securegh.toyota.com/app/scripts/collaborator.cursors.js"></script>
+		<script src="https://securegh.toyota.com/app/scripts/collaborator.dealerchat.js"></script>
+		<script src="https://securegh.toyota.com/app/scripts/collaborator.selectionstracker.js"></script>
+		<script src="https://securegh.toyota.com/app/scripts/collaborator.garage.js"></script>
+		<script src="https://securegh.toyota.com/app/scripts/collaborator.animator.js"></script>
+		<script src="https://securegh.toyota.com/app/scripts/collaborator.validator.js"></script>
+		<script src="https://securegh.toyota.com/app/scripts/collaborator.mutator.js"></script>
+		<script src="https://securegh.toyota.com/app/scripts/collaborator.server.js"></script>
+		<script src="https://securegh.toyota.com/app/scripts/collaborator.runtime.js"></script>
+		<!-- <script src="https://securegh.toyota.com/app/scripts/collaborator.schedule.js"></script> -->
+		<script src="https://apis.google.com/js/client.js?onload=onClientReady"></script>
+		
+		<script type="text/javascript">
+			$(function(){
+				Collaborator.init();
+			})
+		</script>
+	</head>
+	<body>
+		<div id="views" class="interface-element"></div>
+		
+		<div id="interface" class="interface-element">
+			<div id="circlemenus">	
+			
+				<div id="help" class="circlemenu" data-closed-position="x:center|-50,y:bottom|-400" data-opened-position="x:center|-150,y:center|-300" data-opened="false">
+				
+					<div id="help-trending" class="main-menu-button help-main-icon backgroundimage mouse-enabled" data-bg="help_trending.png"></div>
+					<div id="help-answers" class="main-menu-button help-main-icon backgroundimage mouse-enabled" data-bg="help_answers.png"></div>
+					<div id="help-chat" class="main-menu-button help-main-icon backgroundimage mouse-enabled" data-bg="chat_with_an_expert.png"></div>
+					<!--<div id="help-schedule" class="main-menu-button help-main-icon backgroundimage mouse-enabled" data-bg="help_schedule.png"></div>-->
+					<div id="help-raq" class="main-menu-button help-main-icon backgroundimage mouse-enabled" data-bg="help_raq.png"></div>
+					
+					<div id="help-bg-outer" class="backgroundimage closed" data-bg="help_circle_bg.png"></div>
+					<div id="help-bg-inner" class="backgroundimage closed" data-bg="help_circle2-bg.png"></div>
+					
+					<div id="open-help" class="open-button">
+						<div class="open-button-bg"></div>
+						<div class="open-button-icon backgroundimage" data-bg="help_large.png"></div>
+					</div>
+					
+					<div class="close-button mouse-enabled" data-also-close="closewithhelp"><img src="https://securegh.toyota.com/app/images/blank.png" width="100%" height="100%"></div>
+					
+					<div id="trending-carousel" class="carousel-container closewithhelp">
+						<div class="carousel-head">Trending Options</div>
+						<div class="carousel-subhead">What's everyone else choosing?</div>
+						<div class="carousel" id="carousel-view-1" data-per-panel="1" data-carousel-height="130" data-margins="0"  data-margin-offset="0">
+							<div class="carousel-right backgroundimage mouse-enabled" data-bg="carousel-iterate-right-arrow.png"></div>
+							<div class="carousel-left backgroundimage mouse-enabled" data-bg="carousel-iterate-left-arrow.png"></div>
+							<div class="track">
+								<div class="train">
+								</div>
+							</div>
+						</div>
+						<div class="carousel-caption"></div>
+						<div class="carousel-pagination"></div>
+					</div>
+					
+					<div id="chat-zipcode" class="closewithhelp">
+						<div id="zipcode">
+							<div class="menu-head">Enter your Zip Code</div>
+							<div class="menu-subhead">Dealer Hangouts only available<br />in select regions</div>
+							<div class="error-message">Please enter a valid Zip Code</div>
+							<div id="zipcode-field">
+								<input type="text" id="zipcode-entry" class="mouse-enabled"/>
+							</div>
+							<div class="submit-button mouse-enabled"></div>
+						</div>
+					</div>
+				
+				</div>
+				
+				<div id="save" class="circlemenu" data-closed-position="x:right|-380,y:center|-300" data-opened-position="x:right|-800,y:center|-300" data-opened="false">
+				
+					<div id="save-load" class="main-menu-button save-main-icon active backgroundimage mouse-enabled" data-bg="save_load.png"></div>
+					<div id="save-save" class="main-menu-button save-main-icon active backgroundimage mouse-enabled" data-bg="save_save.png"></div>
+					<div id="save-pdf" class="main-menu-button save-main-icon active backgroundimage mouse-enabled" data-bg="save_pdf.png"></div>
+					<div id="save-share" class="main-menu-button save-main-icon active backgroundimage mouse-enabled" data-bg="save_share.png"><img src="https://securegh.toyota.com/app/images/blank.png" width="100%" height="100%"></div>
+					
+					<div id="save-bg-outer" class="backgroundimage closed" data-bg="save_circle1-bg.png"></div>
+					
+					<div id="open-save" class="open-button">
+						<div class="open-button-bg"></div>
+						<div class="open-button-icon backgroundimage" data-bg="save_large.png"></div>
+					</div>
+					
+					<div class="close-button mouse-enabled"><img src="https://securegh.toyota.com/app/images/blank.png" width="100%" height="100%"></div>
+				
+				</div>
+				
+				<div id="view" class="circlemenu" data-closed-position="x:center|-525,y:bottom|-400" data-opened-position="x:left|150,y:center|-320" data-opened="false">
+				
+					<div id="view-hyperlapse" class="main-menu-button view-main-icon backgroundimage mouse-enabled" data-bg="views_virtualtestdrive.png"></div>
+					<div id="view-scenes" class="main-menu-button view-main-icon backgroundimage mouse-enabled" data-bg="views_scenes.png"></div>
+					<div id="view-exterior" class="main-menu-button view-main-icon backgroundimage mouse-enabled" data-bg="views_exterior.png"><img src="https://securegh.toyota.com/app/images/blank.png" width="100%" height="100%"></div>
+					<div id="view-interior" class="main-menu-button view-main-icon backgroundimage mouse-enabled" data-bg="views_interior.png"><img src="https://securegh.toyota.com/app/images/blank.png" width="100%" height="100%"></div>
+					
+					<div id="view-bg-outer" class="backgroundimage closed" data-bg="view_circle1-bg.png"></div>
+					<div id="view-bg-inner" class="backgroundimage closed" data-bg="view_circle2-bg.png"></div>
+				
+					<div id="scenes-carousel" class="carousel-container closewithview">
+						<div class="carousel-head">Stop for a picture.</div>
+						<div class="carousel-subhead">Choose a scene to view your Corolla in.</div>
+						<div class="carousel" id="carousel-view-0" data-per-panel="3" data-carousel-height="110" data-margins="10"  data-margin-offset="0">
+							<div class="carousel-right backgroundimage mouse-enabled" data-bg="carousel-iterate-right-arrow.png"></div>
+							<div class="carousel-left backgroundimage mouse-enabled" data-bg="carousel-iterate-left-arrow.png"><img src="https://securegh.toyota.com/app/images/blank.png" width="100%" height="100%"></div>
+							<div class="track">
+								<div class="train">
+									<div class="carousel-item backgroundimage mouse-enabled" data-head="false" data-scene-bg="scenes_0000_sunsetroad.jpg" data-caption="false" data-bg="sunset_road-thumb.jpg" data-target="scenes" data-function="loadImageIndex" data-params="0" data-hasclick="true"><div class="innercircle"></div></div>
+									<div class="carousel-item backgroundimage mouse-enabled" data-head="false" data-scene-bg="scenes_0001_forestroad.jpg" data-caption="false" data-bg="forest_road-thumb.jpg" data-target="scenes" data-function="loadImageIndex" data-params="1" data-hasclick="true"><div class="innercircle"></div></div>
+									<div class="carousel-item backgroundimage mouse-enabled" data-head="false" data-scene-bg="scenes_0002_parkinglotday.jpg" data-caption="false" data-bg="parkinglot_day-thumb.jpg" data-target="scenes" data-function="loadImageIndex" data-params="2" data-hasclick="true"><div class="innercircle"></div></div>
+									<div class="carousel-item backgroundimage mouse-enabled" data-head="false" data-scene-bg="scenes_0003_desertroad.jpg" data-caption="false" data-bg="desert-thumb.jpg" data-target="scenes" data-function="loadImageIndex" data-params="3" data-hasclick="true"><div class="innercircle"></div></div>
+									<div class="carousel-item backgroundimage mouse-enabled" data-head="false" data-scene-bg="scenes_0004_parkinglotnight.jpg" data-caption="false" data-bg="parkinglot_night-thumb.jpg" data-target="scenes" data-function="loadImageIndex" data-params="4" data-hasclick="true"><div class="innercircle"></div></div>
+								</div>
+							</div>
+						</div>
+						<div class="carousel-pagination"></div>
+						<center><div id="take-picture" class="mouse-enabled backgroundimage" data-bg="save-picture.png"></div></center>
+					</div>
+					<div id="hyperlapse-carousel" class="carousel-container closewithview">
+						<div class="carousel-head">Take the Scenic Route.</div>
+						<div class="carousel-subhead">Choose a route to start your virtual test-drive.</div>
+						<div class="carousel" id="carousel-view-0" data-per-panel="3" data-carousel-height="140" data-margins="11" data-margin-offset="2">
+							<div class="carousel-right backgroundimage mouse-enabled" data-bg="carousel-iterate-right-arrow.png"></div>
+							<div class="carousel-left backgroundimage mouse-enabled" data-bg="carousel-iterate-left-arrow.png"></div>
+							<div class="track">
+								<div class="train">
+									<div class="carousel-item backgroundimage mouse-enabled" data-head="false" data-caption="false" data-bg="route_01.png" data-start="801-811 7th Ave, New York, NY 10019" data-end="151 W 40th St, New York, NY 10018">
+										<div class="innercircle"></div>
+										<div class="item-title">
+											Times Square
+											<span class="city">New York, NY</span>
+										</div>
+									</div>
+									<div class="carousel-item backgroundimage mouse-enabled" data-head="false" data-caption="false" data-bg="route_02.png" data-start="1433-1499 El Camino Real, Sausalito, CA 94965" data-end="Golden Gate Bridge, San Francisco, CA 94129">
+										<div class="innercircle"></div>
+										<div class="item-title">
+											Golden Gate Bridge
+											<span class="city">San Francisco, CA</span>
+										</div>
+									</div>
+									<div class="carousel-item backgroundimage mouse-enabled" data-head="false" data-caption="false" data-bg="route_03.png" data-start="1007-1071 S Michigan Ave, Chicago, IL 60605" data-end="645-655 N Michigan Ave, Chicago, IL 60611">
+										<div class="innercircle"></div>
+										<div class="item-title">
+											Magnificent Mile
+											<span class="city">Chicago, IL</span>
+										</div>
+									</div>
+									<div class="carousel-item backgroundimage mouse-enabled" data-head="false" data-caption="false" data-bg="route_04.png" data-start="Florida A1A, Big Pine Key, FL 33043" data-end="New Sevenmile Bridge, Big Pine Key, FL 33043">
+										<div class="innercircle"></div>
+										<div class="item-title">
+											Florida Keys
+											<span class="city">Marathon, FL</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="carousel-pagination"></div>
+					</div>
+					<div id="hyperlapse-menu" class="closewithview">
+					
+						<div class="menu-head">Let's go places.</div>
+						<div class="subhead-container">
+							<div class="menu-subhead">Choose how you want to pick your route.</div>
+						</div>
+					
+						<div id="hyperlapse-menu-choose">
+							<div id="hyperlapse-choose-left">
+								<div class="icon backgroundimage mouse-enabled" data-bg="enter-own-bg.png" id="choose-own-icon"></div>
+								<div class="smalltext">I want to enter my own route.</div>
+							</div>
+							<div id="hyperlapse-or-divide" class="backgroundimage" data-bg="or-divider.png"></div>
+							<div id="hyperlapse-predefined">
+								<div class="icon backgroundimage mouse-enabled" data-bg="predefined-bg.png" id="predefined-icon"></div>
+								<div class="smalltext">Choose the scenic route.</div>
+							</div>
+						</div>
+						
+						<div id="hyperlapse-menu-enter-route">
+							<div class="save-field">
+								<div class="textinput">
+									<input id="hyperlapse-start-address" type="text" class="longinput mouse-enabled" value="Start Address"/>
+								</div>
+							</div>
+							<div class="save-field">
+								<div class="textinput">
+									<input id="hyperlapse-end-address" type="text" class="longinput mouse-enabled"  value="End Address"/>
+								</div>
+							</div>
+							<div class="submit-button mouse-enabled"></div>
+						</div>
+					
+					</div>
+					
+					
+					<div id="open-view" class="open-button">
+						<div class="open-button-bg"></div>
+						<div class="open-button-icon backgroundimage" data-bg="views_large.png"></div>
+					</div>
+					
+					<div class="close-button mouse-enabled" data-also-close="closewithview"><img src="https://securegh.toyota.com/app/images/blank.png" width="100%" height="100%"></div>
+					
+					
+				
+				</div>
+			
+				<div id="customize" class="circlemenu" data-closed-position="x:left|-220,y:center|-300" data-opened-position="x:left|0,y:center|-320" data-opened="false">
+					
+					<div id="open-exteriorcolor" class="main-menu-button customize-main-icon backgroundimage mouse-enabled" data-bg="customize_exterior.png"></div>
+					<div id="open-fabriccolor" class="main-menu-button customize-main-icon backgroundimage mouse-enabled" data-bg="customize_interior.png"></div>
+					<div id="open-wheels" class="main-menu-button customize-main-icon mouse-enabled" data-bg="wheels-steel16-sprite.png"></div>
+					<div id="open-transmission" class="main-menu-button customize-main-icon backgroundimage mouse-enabled" data-bg="customize_transmission.png"></div>
+					<div id="open-togglefeatures" class="main-menu-button customize-main-icon backgroundimage mouse-enabled" data-bg="customize_options.png"></div>
+					
+					<div id="customize-bg-inner" class="backgroundimage closed" data-bg="circle2-bg.png"></div>
+					<div id="customize-bg-outer" class="backgroundimage closed" data-bg="circle1-bg.png"></div>
+															
+					<div id="exteriorcolor" class="rotocontainer" data-check-function="exteriorcolor">
+						<div data-option-family='exteriorcolor' class="selectbutton exterioricon optionlist mouse-enabled" id="config-blizzardpearl">
+							<div class="icon" data-bg="extcolor-blizzardpearl.png" style="display:none;"></div>
+							<div class="graphic-bg-50 backgroundimage" data-bg="color-selected-bg.png"></div>
+							<div class="select50-color" data-color="#F3F2F2"></div>
+							<div class="select50-highlight backgroundimage" data-bg="color-highlight.png"></div>
+							<div class="graphic-overlay-checked backgroundimage" data-bg="color-checked.png"></div>
+							<div class="graphic-overlay-alert backgroundimage" data-bg="color-alert.png"></div>
+						</div> 
+						<div data-option-family='exteriorcolor' class="selectbutton exterioricon optionlist mouse-enabled" id="config-classicsilver">
+							<div class="icon" data-bg="extcolor-classicsilver.png" style="display:none;"></div>
+							<div class="graphic-bg-50 backgroundimage" data-bg="color-selected-bg.png"></div>
+							<div class="select50-color" data-color="#919191"></div>
+							<div class="select50-highlight backgroundimage" data-bg="color-highlight.png"></div>
+							<div class="graphic-overlay-checked backgroundimage" data-bg="color-checked.png"></div>
+							<div class="graphic-overlay-alert backgroundimage" data-bg="color-alert.png"></div>
+						</div> 
+						<div data-option-family='exteriorcolor' class="selectbutton exterioricon optionlist mouse-enabled" id="config-barcelonared">
+							<div class="icon" data-bg="extcolor-barcelonared.png" style="display:none;"></div>
+							<div class="graphic-bg-50 backgroundimage" data-bg="color-selected-bg.png"></div>
+							<div class="select50-color" data-color="#A21E22"></div>
+							<div class="select50-highlight backgroundimage" data-bg="color-highlight.png"></div>
+							<div class="graphic-overlay-checked backgroundimage" data-bg="color-checked.png"></div>
+							<div class="graphic-overlay-alert backgroundimage" data-bg="color-alert.png"></div>
+						</div> 
+						<div data-option-family='exteriorcolor' class="selectbutton exterioricon optionlist mouse-enabled" id="config-brownsugar">
+							<div class="icon" data-bg="extcolor-brownsugar.png" style="display:none;"></div>
+							<div class="graphic-bg-50 backgroundimage" data-bg="color-selected-bg.png"></div>
+							<div class="select50-color" data-color="#605C55"></div>
+							<div class="select50-highlight backgroundimage" data-bg="color-highlight.png"></div>
+							<div class="graphic-overlay-checked backgroundimage" data-bg="color-checked.png"></div>
+							<div class="graphic-overlay-alert backgroundimage" data-bg="color-alert.png"></div>
+						</div> 
+						<div data-option-family='exteriorcolor' class="selectbutton exterioricon optionlist mouse-enabled" id="config-evergreen">
+							<div class="icon" data-bg="extcolor-evergreen.png" style="display:none;"></div>
+							<div class="graphic-bg-50 backgroundimage" data-bg="color-selected-bg.png"></div>
+							<div class="select50-color" data-color="#20371F"></div>
+							<div class="select50-highlight backgroundimage" data-bg="color-highlight.png"></div>
+							<div class="graphic-overlay-checked backgroundimage" data-bg="color-checked.png"></div>
+							<div class="graphic-overlay-alert backgroundimage" data-bg="color-alert.png"></div>
+						</div> 
+						<div data-option-family='exteriorcolor' class="selectbutton exterioricon optionlist mouse-enabled" id="config-superwhite">
+							<div class="icon" data-bg="extcolor-superwhite.png" style="display:none;"></div>
+							<div class="graphic-bg-50 backgroundimage" data-bg="color-selected-bg.png"></div>
+							<div class="select50-color" data-color="#ffffff"></div>
+							<div class="select50-highlight backgroundimage" data-bg="color-highlight.png"></div>
+							<div class="graphic-overlay-checked backgroundimage" data-bg="color-checked.png"></div>
+							<div class="graphic-overlay-alert backgroundimage" data-bg="color-alert.png"></div>
+						</div> 
+						<div data-option-family='exteriorcolor' class="selectbutton exterioricon optionlist mouse-enabled" id="config-bluecrush">
+							<div class="icon" data-bg="extcolor-bluecrush.png" style="display:none;"></div>
+							<div class="graphic-bg-50 backgroundimage" data-bg="color-selected-bg.png"></div>
+							<div class="select50-color" data-color="#18217A"></div>
+							<div class="select50-highlight backgroundimage" data-bg="color-highlight.png"></div>
+							<div class="graphic-overlay-checked backgroundimage" data-bg="color-checked.png"></div>
+							<div class="graphic-overlay-alert backgroundimage" data-bg="color-alert.png"></div>
+						</div> 
+						<div data-option-family='exteriorcolor' class="selectbutton exterioricon optionlist mouse-enabled" id="config-blacksand">
+							<div class="icon" data-bg="extcolor-blacksand.png" style="display:none;"></div>
+							<div class="graphic-bg-50 backgroundimage" data-bg="color-selected-bg.png"></div>
+							<div class="select50-color" data-color="#242424"></div>
+							<div class="select50-highlight backgroundimage" data-bg="color-highlight.png"></div>
+							<div class="graphic-overlay-checked backgroundimage" data-bg="color-checked.png"></div>
+							<div class="graphic-overlay-alert backgroundimage" data-bg="color-alert.png"></div>
+						</div> 
+						<div data-option-family='exteriorcolor' class="selectbutton exterioricon optionlist mouse-enabled" id="config-slatemetallic">
+							<div class="icon" data-bg="extcolor-blacksand.png" style="display:none;"></div>
+							<div class="graphic-bg-50 backgroundimage" data-bg="color-selected-bg.png"></div>
+							<div class="select50-color" data-color="#2b2934"></div>
+							<div class="select50-highlight backgroundimage" data-bg="color-highlight.png"></div>
+							<div class="graphic-overlay-checked backgroundimage" data-bg="color-checked.png"></div>
+							<div class="graphic-overlay-alert backgroundimage" data-bg="color-alert.png"></div>
+						</div> 
+					</div>
+					<div id="fabriccolor" class="rotocontainer" data-check-function="fabriccolor">
+						<div data-option-family='fabriccolor' data-fabrictype="mixedfabric" class="selectbutton interioricon optionlist mouse-enabled" id="config-steelbluemixed">
+							<div class="graphic-bg-50 backgroundimage" data-bg="color-selected-bg.png"></div>
+							<div class="select50-interior backgroundimage" data-bg="interioricons/steelbluemixed.png"></div>
+							<div class="graphic-overlay-checked backgroundimage" data-bg="color-checked.png"></div>
+							<div class="graphic-overlay-alert backgroundimage" data-bg="color-alert.png"></div>
+						</div> 
+						<div data-option-family='fabriccolor' data-fabrictype="mixedfabric" class="selectbutton interioricon optionlist mouse-enabled" id="config-ambermixed">
+							<div class="graphic-bg-50 backgroundimage" data-bg="color-selected-bg.png"></div>
+							<div class="select50-interior backgroundimage" data-bg="interioricons/ambermixed.png"></div>
+							<div class="graphic-overlay-checked backgroundimage" data-bg="color-checked.png"></div>
+							<div class="graphic-overlay-alert backgroundimage" data-bg="color-alert.png"></div>
+						</div> 
+						<div data-option-family='fabriccolor' data-fabrictype="mixedfabric" class="selectbutton interioricon optionlist mouse-enabled" id="config-blackmixed">
+							<div class="graphic-bg-50 backgroundimage" data-bg="color-selected-bg.png"></div>
+							<div class="select50-interior backgroundimage" data-bg="interioricons/blackmixed.png"></div>
+							<div class="graphic-overlay-checked backgroundimage" data-bg="color-checked.png"></div>
+							<div class="graphic-overlay-alert backgroundimage" data-bg="color-alert.png"></div>
+						</div> 
+						<div data-option-family='fabriccolor' data-fabrictype="fabric" class="selectbutton interioricon optionlist mouse-enabled" id="config-ash">
+							<div class="graphic-bg-50 backgroundimage" data-bg="color-selected-bg.png"></div>
+							<div class="select50-interior backgroundimage" data-bg="interioricons/ash.png"></div>
+							<div class="graphic-overlay-checked backgroundimage" data-bg="color-checked.png"></div>
+							<div class="graphic-overlay-alert backgroundimage" data-bg="color-alert.png"></div>
+						</div> 
+						<div data-option-family='fabriccolor' data-fabrictype="fabric" class="selectbutton interioricon optionlist mouse-enabled" id="config-amber">
+							<div class="graphic-bg-50 backgroundimage" data-bg="color-selected-bg.png"></div>
+							<div class="select50-interior backgroundimage" data-bg="interioricons/amber.png"></div>
+							<div class="graphic-overlay-checked backgroundimage" data-bg="color-checked.png"></div>
+							<div class="graphic-overlay-alert backgroundimage" data-bg="color-alert.png"></div>
+						</div> 
+						<div data-option-family='fabriccolor' data-fabrictype="fabric" class="selectbutton interioricon optionlist mouse-enabled" id="config-ivory">
+							<div class="graphic-bg-50 backgroundimage" data-bg="color-selected-bg.png"></div>
+							<div class="select50-interior backgroundimage" data-bg="interioricons/ivory.png"></div>
+							<div class="graphic-overlay-checked backgroundimage" data-bg="color-checked.png"></div>
+							<div class="graphic-overlay-alert backgroundimage" data-bg="color-alert.png"></div>
+						</div> 
+						<div data-option-family='fabriccolor' data-fabrictype="fabric" class="selectbutton interioricon optionlist mouse-enabled" id="config-steelgray">
+							<div class="graphic-bg-50 backgroundimage" data-bg="color-selected-bg.png"></div>
+							<div class="select50-interior backgroundimage" data-bg="interioricons/steelgray.png"></div>
+							<div class="graphic-overlay-checked backgroundimage" data-bg="color-checked.png"></div>
+							<div class="graphic-overlay-alert backgroundimage" data-bg="color-alert.png"></div>
+						</div> 
+						<div data-option-family='fabriccolor' data-fabrictype="softex" class="selectbutton interioricon optionlist mouse-enabled" id="config-blacksoftex">
+							<div class="graphic-bg-50 backgroundimage" data-bg="color-selected-bg.png"></div>
+							<div class="select50-interior backgroundimage" data-bg="interioricons/blacksoftex.png"></div>
+							<div class="graphic-overlay-checked backgroundimage" data-bg="color-checked.png"></div>
+							<div class="graphic-overlay-alert backgroundimage" data-bg="color-alert.png"></div>
+						</div> 
+					</div>
+					<div id="wheels" class="rotocontainer" data-check-function="wheels">						
+						<div data-option-family='wheels' class="selectbutton wheelicon optionlist mouse-enabled" id="config-steel15">
+							<div class="graphic-bg-75 backgroundimage" data-bg="75-selected-bg.png"></div>
+							<div class="select75-wheel backgroundimage" data-bg="steel15.png"></div>
+							<div class="graphic-overlay-checked backgroundimage" data-bg="color-checked.png"></div>
+							<div class="graphic-overlay-alert backgroundimage" data-bg="color-alert.png"></div>
+						</div> 
+						<div data-option-family='wheels' class="selectbutton wheelicon optionlist mouse-enabled" id="config-steel16">
+							<div class="graphic-bg-75 backgroundimage" data-bg="75-selected-bg.png"></div>
+							<div class="select75-wheel backgroundimage" data-bg="steel16.png"></div>
+							<div class="graphic-overlay-checked backgroundimage" data-bg="color-checked.png"></div>
+							<div class="graphic-overlay-alert backgroundimage" data-bg="color-alert.png"></div>
+						</div> 
+						<div data-option-family='wheels' class="selectbutton wheelicon optionlist mouse-enabled" id="config-alloy16">
+							<div class="graphic-bg-75 backgroundimage" data-bg="75-selected-bg.png"></div>
+							<div class="select75-wheel backgroundimage" data-bg="alloy16.png"></div>
+							<div class="graphic-overlay-checked backgroundimage" data-bg="color-checked.png"></div>
+							<div class="graphic-overlay-alert backgroundimage" data-bg="color-alert.png"></div>
+						</div> 
+						<div data-option-family='wheels' class="selectbutton wheelicon optionlist mouse-enabled" id="config-steel16unique">
+							<div class="graphic-bg-75 backgroundimage" data-bg="75-selected-bg.png"></div>
+							<div class="select75-wheel backgroundimage" data-bg="steel16unique.png"></div>
+							<div class="graphic-overlay-checked backgroundimage" data-bg="color-checked.png"></div>
+							<div class="graphic-overlay-alert backgroundimage" data-bg="color-alert.png"></div>
+						</div> 
+						<div data-option-family='wheels' class="selectbutton wheelicon optionlist mouse-enabled" id="config-alloy17">
+							<div class="graphic-bg-75 backgroundimage" data-bg="75-selected-bg.png"></div>
+							<div class="select75-wheel backgroundimage" data-bg="alloy17.png"></div>
+							<div class="graphic-overlay-checked backgroundimage" data-bg="color-checked.png"></div>
+							<div class="graphic-overlay-alert backgroundimage" data-bg="color-alert.png"></div>
+						</div> 
+						<div data-option-family='wheels' class="selectbutton wheelicon optionlist mouse-enabled" id="config-aero16">
+							<div class="graphic-bg-75 backgroundimage" data-bg="75-selected-bg.png"></div>
+							<div class="select75-wheel backgroundimage" data-bg="aero16.png"></div>
+							<div class="graphic-overlay-checked backgroundimage" data-bg="color-checked.png"></div>
+							<div class="graphic-overlay-alert backgroundimage" data-bg="color-alert.png"></div>
+						</div> 
+					</div>
+					
+					<div id="transmission" class="rotocontainer" data-check-function="transmission">
+						<div data-option-family='transmission' class="selectbutton transmissionicon optionlist mouse-enabled" id="config-6MT">
+							<div class="select75-transmission backgroundimage" data-bg="transmission_manual.png"></div>
+							<div class="graphic-overlay-checked backgroundimage" data-bg="trans-checked.png"></div>
+						</div> 
+						<div data-option-family='transmission' class="selectbutton transmissionicon optionlist mouse-enabled" id="config-4AT">
+							<div class="select75-transmission backgroundimage" data-bg="transmission_auto.png"></div>
+							<div class="graphic-overlay-checked backgroundimage" data-bg="trans-checked.png"></div>
+						</div> 
+						<div data-option-family='transmission' class="selectbutton transmissionicon optionlist mouse-enabled" id="config-CVT">
+							<div class="select75-transmission backgroundimage" data-bg="transmission_cvt.png"></div>
+							<div class="graphic-overlay-checked backgroundimage" data-bg="trans-checked.png"></div>
+						</div> 
+					</div>
+					
+					<div id="togglefeatures" class="rotocontainer" data-check-function="togglefeatures">
+						<div data-option-family='togglefeatures' class="selectbutton toggleicon optionlist mouse-enabled" id="toggle-moonroof">
+							<div class="graphic-bg-50 backgroundimage" data-bg="color-selected-bg.png"></div>
+							<div class="select50-toggleoption backgroundimage" data-bg="options_0000_sunroof.png"></div>
+							<div class="graphic-overlay-checked backgroundimage" data-bg="color-checked.png"></div>
+							<div class="graphic-overlay-alert backgroundimage" data-bg="color-alert.png"></div>
+						</div> 
+						<div data-option-family='togglefeatures' class="selectbutton toggleicon optionlist mouse-enabled" id="toggle-foglights">
+							<div class="graphic-bg-50 backgroundimage" data-bg="color-selected-bg.png"></div>
+							<div class="select50-toggleoption backgroundimage" data-bg="options_0001_foglight.png"></div>
+							<div class="graphic-overlay-checked backgroundimage" data-bg="color-checked.png"></div>
+							<div class="graphic-overlay-alert backgroundimage" data-bg="color-alert.png"></div>
+						</div> 
+						<div data-option-family='togglefeatures' class="selectbutton toggleicon optionlist mouse-enabled" id="toggle-spoiler">
+							<div class="graphic-bg-50 backgroundimage" data-bg="color-selected-bg.png"></div>
+							<div class="select50-toggleoption backgroundimage" data-bg="options_0002_rearspoiler.png"></div>
+							<div class="graphic-overlay-checked backgroundimage" data-bg="color-checked.png"></div>
+							<div class="graphic-overlay-alert backgroundimage" data-bg="color-alert.png"></div>
+						</div> 
+						<div data-option-family='togglefeatures' class="selectbutton toggleicon optionlist mouse-enabled" id="toggle-leathertrimwheel">
+							<div class="graphic-bg-50 backgroundimage" data-bg="color-selected-bg.png"></div>
+							<div class="select50-toggleoption backgroundimage" data-bg="options_0003_paddleshifter.png"></div>
+							<div class="graphic-overlay-checked backgroundimage" data-bg="color-checked.png"></div>
+							<div class="graphic-overlay-alert backgroundimage" data-bg="color-alert.png"></div>
+						</div> 
+						<div data-option-family='togglefeatures' class="selectbutton toggleicon optionlist mouse-enabled" id="toggle-entunepremium">
+							<div class="graphic-bg-50 backgroundimage" data-bg="color-selected-bg.png"></div>
+							<div class="select50-toggleoption backgroundimage" data-bg="options_0004_entune.png"></div>
+							<div class="graphic-overlay-checked backgroundimage" data-bg="color-checked.png"></div>
+							<div class="graphic-overlay-alert backgroundimage" data-bg="color-alert.png"></div>
+						</div> 
+						<div data-option-family='togglefeatures' class="selectbutton toggleicon optionlist mouse-enabled" id="toggle-softexheated">
+							<div class="graphic-bg-50 backgroundimage" data-bg="color-selected-bg.png"></div>
+							<div class="select50-toggleoption backgroundimage" data-bg="options_0005_heatedseats.png"></div>
+							<div class="graphic-overlay-checked backgroundimage" data-bg="color-checked.png"></div>
+							<div class="graphic-overlay-alert backgroundimage" data-bg="color-alert.png"></div>
+						</div> 
+					</div>
+					<div id="open-customize" class="open-button">
+						<div class="open-button-bg"></div>
+						<div class="open-button-icon backgroundimage" data-bg="customize_large.png"></div>
+					</div>
+					<div class="close-button mouse-enabled"><img src="https://securegh.toyota.com/app/images/blank.png" width="100%" height="100%"></div>
+					<div class="tip"></div>
+					<!--<div class="undo-button mouse-enabled"></div>-->
+				</div>	
+			</div>		
+			<div id="changelog">
+				<div class="notification mouse-enabled"></div>
+				<div id="log">
+				</div>
+				<div class="close-button mouse-enabled"><img src="https://securegh.toyota.com/app/images/blank.png" width="100%" height="100%"></div>
+			</div>	
+			<div id="savedrawer">
+				<div id="configurations">
+					<div id="blurb">
+						<div id="text">
+							Below is where saved configurations appear when you choose to save a vehicle. Click Save to save the current configuration to your garage.
+						</div>
+					</div>
+					<div id="saveblocks" class="mouse-enabled">
+						<div class="config-column mouse-enabled" id="saveblock-0"></div>
+						<div class="config-column mouse-enabled" id="saveblock-1"></div>
+						<div class="config-column mouse-enabled" id="saveblock-2"></div>
+					</div>
+				</div>
+				<div class="close-button mouse-enabled"><img src="https://securegh.toyota.com/app/images/blank.png" width="100%" height="100%"></div>
+			</div>
+			<div id="disclaimers-panel">
+				<div class="scroll-box mouse-enabled">
+					<div class="row">
+						 <div class="disclaimers-blurb">1. Manufacturer's Suggested Retail Price, excludes the Delivery, Processing and Handling Fee of $810 for Cars, $860 for Small/Medium Trucks (Sienna, RAV4, Highlander Gas, Highlander HV, FJ Cruiser, 4Runner, Tacoma and Venza), and $995 for Large Trucks (Land Cruiser, Tundra and Sequoia). (Historically, vehicle manufacturers and distributors have charged a separate fee for processing, handling and delivering vehicles to dealerships. Toyota's charge for these services is called the "Delivery, Processing and Handling Fee" and is based on the value of the processing, handling and delivery services Toyota provides as well as Toyota's overall pricing structure. Toyota may make a profit on the Delivery, Processing and Handling Fee.) Excludes taxes, license, title and available or regionally required equipment. The Delivery, Processing and Handling Fee in AL, AR, FL, GA, LA, MS, NC, OK, SC and TX will be higher. Actual dealer price will vary.</div>
+					</div>
+					<div class="row">
+						 <div class="disclaimers-blurb">2. 2014 EPA-estimated mileage. Actual mileage will vary.</div>
+					</div>
+					<div class="row">
+						<div class="disclaimers-blurb">3. Always drive safely, obey traffic laws and focus on the road and traffic conditions while driving. Availability and accuracy of the information provided by the Navigation system or any HD services are dependent upon many factors. Use common sense when relying on information provided. Services and programming subject to change. Services not available in every city or roadway. Navigation updates are available at an additional cost from your Toyota dealer. See your <i>Navigation System Owner&apos;s Manual</i> or Toyota dealer for details. HD Radio<sup>TM</sup> Technology manufactured under license from iBiquity Digital Corporation U.S. and Foreign Patents. HD Radio<sup>TM</sup> and the HD, HD Radio, and "Arc" logos are proprietary trademarks of iBiquity Digital Corp.</div>
+					</div>
+					<div class="row">
+						<div class="disclaimers-blurb">4. Always drive safely, obey traffic laws and focus on the road and traffic conditions while driving. Select Entune&reg; App Suite apps use a large amount of data and you are responsible for all data charges. Apps and services vary by phone and carrier; not all services available all the time and in all locations, and are subject to change. Apps identified by "TM" or "&reg;" are trademarks or registered trademarks of their respective companies and cannot be used without permission. See <a href="http://toyota.com/entune/" target="_blank">toyota.com/entune</a> for the latest information regarding registration, apps and services, and other details.</div>
+					</div>
+				</div>
+				<div class="close-button mouse-enabled"><img src="https://securegh.toyota.com/app/images/blank.png" width="100%" height="100%"></div>
+			</div>
+			<div id="schedule-hangout-panel" class="mouse-enabled">
+				<div id="dateTimeForm" class="scheduleHangout">
+					<input type="text" id="datepicker" placeholder="Select a Date" class="dateInputs" />
+					<input type="text" id="timepicker" class="dateInputs" placeholder="Select a Time" />
+					<select id="selectDealer">
+						<option value="" data-description="">Select a Dealer</option>
+					</select>
+					<div class="function-button zocial googleplus" id="schedule-it">Schedule Hangout</div>
+				</div>
+				<div id="confirmationForm" class="scheduleHangout">
+					<!--<h2>Summary of your scheduled Hangout</h2>-->
+					<p id="confirmMsg"></p>
+					<select id="selectReminder">
+						<option value="0">Set Event Reminder</option>
+						<option value="0">No Reminder Needed</option>
+						<option value="15">15 Mins Before Hangout</option>
+						<option value="30">30 Mins Before Hangout</option>
+						<option value="45">45 Mins Before Hangout</option>
+						<option value="60">1 Hour Before Hangout</option>
+					</select>	
+					<div class="function-button zocial googleplus" id="confirm-it">Confirm Hangout</div>
+				</div>
+				<div class="close-button mouse-enabled"><img src="https://securegh.toyota.com/app/images/blank.png" width="100%" height="100%"></div>
+			</div>
+			<div id="answers-panel">
+				<div class="scroll-box mouse-enabled">
+					<div class="row">
+						<div class="answers-title mouse-enabled"><span class="arrow">&#9660;</span>Who can I invite to “Collaborate” with me? </div>
+						<div class="answers-blurb">As long as you have a Gmail/G+ account, anyone you like. You can bring in friends, fellow car enthusiasts or coworkers. Anyone you think might be helpful in building your next car. We suggest keeping the group small: No one wants a car designed by committee.</div>
+					</div>
+					<div class="row">
+						<div class="answers-title mouse-enabled"><span class="arrow">&#9660;</span>Do my friends and family need Google+ accounts to join me in a Hangout? </div>
+						<div class="answers-blurb">Yes. At this time, only people with a Google+ account can use the Collaborator. </div>
+					</div>
+					<div class="row">
+						<div class="answers-title mouse-enabled"><span class="arrow">&#9660;</span>Do my friends and family have to be online to join a Hangout? </div>
+						<div class="answers-blurb">Yes, they do. A fast internet connection is recommended. </div>
+					</div>
+					<div class="row">
+						<div class="answers-title mouse-enabled"><span class="arrow">&#9660;</span>What’s the difference between the 2-D and 3-D view options?</div>
+						<div class="answers-blurb">The Collaborator launches in 2-D mode, which lets you toggle between four different views of your custom car. If you’re on a faster computer, try the 3-D mode – you’ll be able to rotate your Corolla for a 360° view, plus overhead views. If 3-D mode is running slowly, switching back to the 2-D option should speed things up.</div>
+					</div>
+					<div class="row">
+						<div class="answers-title mouse-enabled"><span class="arrow">&#9660;</span>Can I customize other Toyota vehicles? </div>
+						<div class="answers-blurb">No, at this time only Corolla can be customized.</div>
+					</div>
+					<div class="row">
+						 <div class="answers-title mouse-enabled"><span class="arrow">&#9660;</span>Can I save my Corolla once I build it? And where is it stored?</div>
+						 <div class="answers-blurb">Once you have built your vehicle, you can save up to three different versions of it. You will want to choose a custom name for each one so you don’t get them confused. Now you can see the difference between building a car on your own, and letting your friends help.</div>
+					</div>
+					<div class="row">
+						 <div class="answers-title mouse-enabled"><span class="arrow">&#9660;</span>How do I talk to, or find, a dealer?</div>
+						 <div class="answers-blurb">One way is to invite them to your Google Hangout by selecting the Talk to an Expert function. This will allow you to invite a local dealer to your Hangout. They are happy to answer questions, give advice or just talk about all things Toyota. Please note that this feature may not be available in your area. If that’s the case, go <a href="http://www.toyota.com/dealers/" target="_blank">here</a> to talk to a dealer in your area.</div>
+					</div>
+					<div class="row">
+						<div class="answers-title mouse-enabled"><span class="arrow">&#9660;</span>What are the system requirements for Collaborator? </div>
+						<div class="answers-blurb">Collaborator works best with the Chrome browser. We want your Toyota shopping experience to be as easy as possible. You can download it here if you don’t have it already: <a href="https://www.google.com/intl/en/chrome/browser/" target="_blank">https://www.google.com/intl/en/chrome/browser/</a></div>
+					</div>
+					<div class="row">
+						 <div class="answers-title mouse-enabled"><span class="arrow">&#9660;</span>Can I take my Collaboration to the dealer?</div>
+						 <div class="answers-blurb">Of course you can. Just save your build in PDF format, and you can take that to the dealership.</div>
+					</div>
+					<div class="row">
+						<div class="answers-title mouse-enabled"><span class="arrow">&#9660;</span>Who sees my Collaboration? Can I change it?</div>
+						<div class="answers-blurb">You can share your build with as many, or few, people as you like. Just adjust your settings in Google Hangout to adjust how many people can see your latest custom vehicle.</div>
+					</div>
+					<div class="row">
+						<div class="answers-title mouse-enabled"><span class="arrow">&#9660;</span>Can I use Collaborator on my smartphone? </div>
+						<div class="answers-blurb">Toyota Collaborator is designed only to work on your desktop for now. If you don’t have a desktop to view it, ask one of your friends. You can still save your creation and have access to it whenever you like.</div>
+					</div>
+					<div class="row">
+						 <div class="answers-title mouse-enabled"><span class="arrow">&#9660;</span>How do I add people to my Collaborator?</div>
+						 <div class="answers-blurb">The same way you add friends to any of your Google Hangouts. Simply select them from your list of Google contacts. You can choose up to ten.</div>
+					</div>
+					<div class="row">
+						 <div class="answers-title mouse-enabled"><span class="arrow">&#9660;</span>Can I build more than one car?</div>
+						 <div class="answers-blurb">You have the option to create and save up to three builds. After that, you will need to delete one before you can save another. Feel free to build as many as you like, though, so you can be sure to create one you love.</div>
+					</div>
+					<div class="row">
+						<div class="answers-title mouse-enabled"><span class="arrow">&#9660;</span>Why can I not put everything I want on my vehicle? </div>
+						<div class="answers-blurb">Not every option and feature is available on every trim. Each model only has a set amount of configurations, but we try to appeal to everyone’s taste and style. </div>
+					</div>
+					<div class="row">
+						<div class="answers-title mouse-enabled"><span class="arrow">&#9660;</span>What do you mean when you say trim?</div>
+						<div class="answers-blurb">This is how we talk about the possible model grades of each vehicle. For Corolla, possible trims are L, LE, LE Eco and S. If you want to know more about trims for Corolla, please visit toyota.com.</div>
+					</div>
+					<div class="row">
+						<div class="answers-title mouse-enabled"><span class="arrow">&#9660;</span>Why does the color of my car change when I change the wheels or trim?</div>
+						<div class="answers-blurb">Some color options aren’t available with certain wheels or trim packages. Try starting with your preferred trim package and building from there.</div>
+					</div>
+					<div class="row">
+						 <div class="answers-title mouse-enabled"><span class="arrow">&#9660;</span>What is a CVT transmission, and why is it a good thing?</div>
+						 <div class="answers-blurb">CVT stands for Continuously Variable Transmission. Basically this transmission helps maximize fuel efficiency and provides a smoother drive in comparison with a traditional automatic transmission.</div>
+					</div>
+					<div class="row">
+						<div class="answers-title mouse-enabled"><span class="arrow">&#9660;</span>What is Corolla’s mpg? </div>
+						<div class="answers-blurb">MPG varies with Corolla models, and of course, your driving habits, but the LE Eco is EPA-estimated at 42 hwy. mpg.<sup>2</sup> The other models also offer equally impressive mpg estimates.</div>
+					</div>
+					<div class="row">
+						<div class="answers-title mouse-enabled"><span class="arrow">&#9660;</span>How can I get more information on Corolla’s warranty? </div>
+						<div class="answers-blurb">Your dealer will be your best resource for any warranty information. Another great place to ask questions is the Ask an Owner page, another great resource for learning about Toyota. You can visit it at <a href='http://www.toyota.com/owners/ask-an-owner/' target="_blank">http://www.toyota.com/owners/ask-an-owner/</a></div>
+					</div>
+					<div class="row">
+						<div class="answers-title mouse-enabled"><span class="arrow">&#9660;</span>What is Entune&reg App Suite?</div>
+						<div class="answers-blurb">This is Toyota's revolutionary in-car technology. Entune&reg; App Suite<sup>4</sup> is a collection of popular mobile applications and data services that are now accessible right from inside your Toyota. Now you can stay connected, no matter where you are.</div>
+					</div>
+				</div>
+				<div class="close-button mouse-enabled"><img src="https://securegh.toyota.com/app/images/blank.png" width="100%" height="100%"></div>
+			</div>
+			<div id="sharedrawer">
+				<div id="configurations">
+					<div id="blurb">
+						<div id="text">
+							&nbsp;
+						</div>
+					</div>
+					<div id="saveblocks" class="mouse-enabled">
+						<div class="config-column mouse-enabled" id="shareblock-0"></div>
+						<div id="share-icons">
+							<div class="share-button mouse-enabled g-interactivepost" id="gplus"
+								data-contenturl="http://toyota.com/collaborator"
+								data-clientid="378541969879.apps.googleusercontent.com"
+								data-cookiepolicy="single_host_origin"
+								data-prefilltext="I just built a 2014 Corolla with my friends in a Google Hangout. Build one for yourself now."
+								data-calltoactionlabel="CREATE"
+								data-calltoactionurl="http://toyota.com/collaborator">
+							</div>
+							<div class="share-button mouse-enabled" id="facebook"></div>
+							<div class="share-button mouse-enabled" id="twitter"></div>
+						</div>
+					</div>
+				</div>
+				<div class="close-button mouse-enabled"><img src="https://securegh.toyota.com/app/images/blank.png" width="100%" height="100%"></div>
+			</div>
+			
+			<style>
+				
+				sup.trims-drawer{
+					position:absolute;
+					top:35px;
+					left:85px;
+					width:20px;
+					height:20px;
+					display:block;
+					text-align:right;
+				}
+				
+				sup.trims-drawer:last-child{
+					left:90px;
+					top:65px;
+				}
+				
+			</style>
+			
+			<div id="trims-panel">
+				<div id="trims-disclaimer-bottom">Starting msrp shown for all trims. Adding features may increase msrp. Contact your local dealer for actual pricing.</div>
+				<div id="trim" data-check-function="trim">
+					<div data-check-function='trim' class="trim-column" id="trimcol-1">
+						<div class="selectbutton mouse-enabled" data-tip-side="right" data-option-family="trim" id="config-1831">
+							<div class="trim-block backgroundimage" data-bg="1831.png">
+								<sup class="trims-drawer mouse-enabled"></sup>
+								<sup class="trims-drawer mouse-enabled"></sup>
+							</div>
+						</div>
+						<div class="selectbutton mouse-enabled" data-tip-side="right" data-option-family="trim" id="config-1832">
+							<div class="trim-block backgroundimage" data-bg="1832.png">
+								<sup class="trims-drawer mouse-enabled"></sup>
+								<sup class="trims-drawer mouse-enabled"></sup>
+							</div>
+						</div>
+					</div>
+					<div data-check-function='trim' class="trim-column" id="trimcol-2">
+						<div class="selectbutton mouse-enabled" data-tip-side="right" data-option-family="trim" id="config-1852">
+							<div class="trim-block backgroundimage" data-bg="1852.png">
+								<sup class="trims-drawer mouse-enabled"></sup>
+								<sup class="trims-drawer mouse-enabled"></sup>
+							</div>
+						</div>
+						<div class="selectbutton mouse-enabled" data-tip-side="right" data-option-family="trim" id="config-1854">
+							<div class="trim-block backgroundimage" data-bg="1854.png">
+								<sup class="trims-drawer mouse-enabled"></sup>
+								<sup class="trims-drawer mouse-enabled"></sup>
+							</div>
+						</div>
+						<div class="selectbutton mouse-enabled" data-tip-side="right" data-option-family="trim" id="config-1856">
+							<div class="trim-block backgroundimage" data-bg="1856.png">
+								<sup class="trims-drawer mouse-enabled"></sup>
+								<sup class="trims-drawer mouse-enabled"></sup>
+							</div>
+						</div>
+					</div>
+					<div data-check-function='trim' class="trim-column" id="trimcol-3">
+						<div class="selectbutton mouse-enabled" data-tip-side="right" data-option-family="trim" id="config-1872">
+							<div class="trim-block backgroundimage" data-bg="1872.png">
+								<sup class="trims-drawer mouse-enabled"></sup>
+								<sup class="trims-drawer mouse-enabled"></sup>
+							</div>
+						</div>
+						<div class="selectbutton mouse-enabled" data-tip-side="right" data-option-family="trim" id="config-1874">
+							<div class="trim-block backgroundimage" data-bg="1874.png">
+								<sup class="trims-drawer mouse-enabled"></sup>
+								<sup class="trims-drawer mouse-enabled"></sup>
+							</div>
+						</div>
+						<div class="selectbutton mouse-enabled" data-tip-side="right" data-option-family="trim" id="config-1876">
+							<div class="trim-block backgroundimage" data-bg="1876.png">
+								<sup class="trims-drawer mouse-enabled"></sup>
+								<sup class="trims-drawer mouse-enabled"></sup>
+							</div>
+						</div>
+					</div>
+					<div data-check-function='trim' class="trim-column" id="trimcol-4">
+						<div class="selectbutton mouse-enabled" data-tip-side="left" data-option-family="trim" id="config-1862">
+							<div class="trim-block backgroundimage" data-bg="1862.png">
+								<sup class="trims-drawer mouse-enabled"></sup>
+								<sup class="trims-drawer mouse-enabled"></sup>
+							</div>
+						</div>
+						<div class="selectbutton mouse-enabled" data-tip-side="left" data-option-family="trim" id="config-1864">
+							<div class="trim-block backgroundimage" data-bg="1864.png">
+								<sup class="trims-drawer mouse-enabled"></sup>
+								<sup class="trims-drawer mouse-enabled"></sup>
+							</div>
+						</div>
+						<div class="selectbutton mouse-enabled" data-tip-side="left" data-option-family="trim" id="config-1866">
+							<div class="trim-block backgroundimage" data-bg="1866.png">
+								<sup class="trims-drawer mouse-enabled"></sup>
+								<sup class="trims-drawer mouse-enabled"></sup>
+							</div>
+						</div>
+						<div class="selectbutton mouse-enabled" data-tip-side="left" data-option-family="trim" id="config-1863">
+							<div class="trim-block backgroundimage" data-bg="1863.png">
+								<sup class="trims-drawer mouse-enabled"></sup>
+								<sup class="trims-drawer mouse-enabled"></sup>
+							</div>
+						</div>
+					</div>					
+					<div id="trims-tip">
+						<div id="trims-tip-left" class="trims-arrow-left backgroundimage" data-bg="trims-tip-arrow-left.png"></div>
+						<div id="trims-tip-text"></div>
+						<div id="trims-tip-right" class="trims-arrow-right backgroundimage" data-bg="trims-tip-arrow-right.png"></div>
+					</div>
+				</div>
+				<div class="close-button mouse-enabled"><img src="https://securegh.toyota.com/app/images/blank.png" width="100%" height="100%"></div>
+			</div>	
+		</div>
+		<div id="collab-logo" class="interface-element mouse-enabled" onClick="dialogue()"></div>
+		<div id="corolla-logo" class="interface-element"></div>
+		<div id="coachmarks">
+			<!-- <div class="mark backgroundimage" id="coach_exterior-view" 		data-offset="-170px,45px" 		data-bg="rotate-coach-2D.png"></div> -->
+			<!-- <div class="mark backgroundimage" id="coach_webglexterior-view" 	data-offset="-125px,-30px" 		data-bg="rotate-coach-WebGL.png"></div> -->
+			<div class="mark backgroundimage" id="coach_open-help" 					data-offset="150px,50px" 		data-bg="coachmarks_help.png"></div>
+			<div class="mark backgroundimage" id="coach_open-save" 					data-offset="-140px,55px" 		data-bg="coachmarks_saved.png"></div>
+			<div class="mark backgroundimage" id="coach_trims-notifier"				data-offset="50px,-80px"	 	data-bg="coachmarks_trim.png"></div>
+			<div class="mark backgroundimage" id="coach_open-view" 					data-offset="-160px,50px"   	data-bg="coachmarks_view.png"></div>
+			<div class="mark backgroundimage" id="coach_open-customize" 			data-offset="150px,60px"  		data-bg="coachmarks_customize.png"></div>
+		</div>
+		<div id="home-disclaimer">Prototype shown with options.</div>
+		<!--<div id="gplus-logo" class="interface-element"></div>-->
+		<div id="coachmarks-toggle" class="backgroundimage mouse-enabled interface-element" data-bg="coachmarks-toggle.png"></div>		
+		<div id="exterior-view-toggle">
+			<div id="exterior-view-toggle-container" class="exterior">
+			
+				<div class="set-exterior-view mouse-enabled" data-setting="exterior"></div>
+				<div id="toggle-switch" class="mouse-enabled">
+					<div class="switch exterior"></div>
+				</div>
+				<div class="set-exterior-view mouse-enabled" data-setting="webglexterior"></div>
+				
+				<div id="webgl-tooltip"></div>
+				<div id="nowebgl-tooltip"></div>
+				
+			</div>
+		</div>
+		<div id="trims-notifier" class="mouse-enabled interface-element"><div class="copy"></div></div>
+		<!--<div id="notifications" class="mouse-enabled"></div>-->
+		<!--<div id="alertModal"></div>-->
+		<div id="intro-container" class="interface-element">
+			<div id="intro" class="mouse-enabled">
+				<div id="start">
+					<div id="carousel" class="respond">
+						<div id="arrow-left" class="mouse-enabled"></div>
+						<div id="nodes">
+							<div id="carouselIcon">
+								<div id="introCarouselIcon-0" class="carouselIcon" data-icon="https://securegh.toyota.com/app/images/intro-carousel-customize.png"></div>
+								<div id="introCarouselIcon-1" class="carouselIcon" data-icon="https://securegh.toyota.com/app/images/intro-carousel-save.png"></div>
+								<div id="introCarouselIcon-2" class="carouselIcon" data-icon="https://securegh.toyota.com/app/images/intro-carousel-views.png"></div>
+								<div id="introCarouselIcon-3" class="carouselIcon" data-icon="https://securegh.toyota.com/app/images/intro-carousel-save.png"></div>
+								<div id="introCarouselIcon-4" class="carouselIcon" data-icon="https://securegh.toyota.com/app/images/intro-carousel-customize.png"></div>
+							</div>
+							<div id="carouselText">
+								<div id="introCarouselText-0" class="carouselText" data-header="Custom-Built With Friends." data-text="Toyota Collaborator is a fun new way to build a car in Google Hangout with your friends. You can save it, share it, get more help and see other custom creations."></div>
+								<div id="introCarouselText-1" class="carouselText" data-header="My Configurations" data-text="You can save up to three different vehicle builds and view your previous configurations."></div>
+								<div id="introCarouselText-2" class="carouselText" data-header="Views" data-text="Take your Corolla on a virtual test-drive or print out a picture of your vehicle with your choice of background. You can also see interior and exterior views of your Corolla."></div>
+								<div id="introCarouselText-3" class="carouselText" data-header="Save and Share" data-text="That is one fine-looking Corolla. Download a PDF of your vehicle here so you can print it out or share it via Google+, Facebook or Twitter."></div>
+								<div id="introCarouselText-4" class="carouselText" data-header="Share Your Creation" data-text="Was there someone you forgot to invite to your Hangout? Don’t worry—you can share your build with them right here. Just choose the social network you prefer and share with friends and family."></div>
+							</div>
+						</div>
+						<div id="arrow-right" class="mouse-enabled"></div>
+						<div id="paginate">
+							
+						</div>
+			        </div>
+			        <div id="start-button" class="mouse-enabled"></div>
+				</div>
+				<div id="cor-logo" class="respond"></div>
+			</div>
+		</div>
+		<div id="feedback-panel" class="mouse-enabled">
+			<div id="feedback-form">
+				<div id="blurb">
+				    <div id="text">
+				    	We'd love to hear from you. Let us know what you think.
+				    </div>
+				</div>
+				<div class="shortinput first">
+					<input id="feedback-first_name" type="text" class="feedbackinput mouse-enabled" placeholder="First Name"/>
+	    		</div>
+				<div class="shortinput">
+					<input id="feedback-last_name" type="text" class="feedbackinput mouse-enabled" placeholder="Last Name"/>
+	    		</div>
+				<div class="longinput">
+					<input id="feedback-email_address" type="text" class="feedbackinput mouse-enabled" placeholder="Email Address"/>
+	    		</div>
+				<div class="longinput withtextarea">
+					<textarea id="feedback-comments" class="feedbackinput mouse-enabled" placeholder="Your Comments"/></textarea>
+	    		</div>
+	    		<div id="feedback_submit" class="mouse-enabled backgroundimage" data-bg="send-feedback.png"></div>
+    		</div>
+			<div class="close-button mouse-enabled"><img src="https://securegh.toyota.com/app/images/blank.png" width="100%" height="100%"></div>
+		</div>
+		<div id="disclosures" class="mouse-enabled backgroundimage" data-bg="disclosures_btn.png"><img src="https://securegh.toyota.com/app/images/blank.png" width="100%" height="100%"></div>
+		<div id="feedback" class="mouse-enabled backgroundimage" data-bg="feedback_btn.png"><img src="https://securegh.toyota.com/app/images/blank.png" width="100%" height="100%"></div>
+		<div id="screen" class="mouse-enabled interface-element"></div>
+		<div id="frame-rate-warning" class="mouse-enabled interface-element">
+			<div id="warning">
+				<h2>Get the best experience</h2>
+				<p class="warningmessage warning">Toyota Collaborator is best viewed in the 3-D version, but right now it might <br> run better in 2-D. Click below to switch to the 2-D version of the site, or <br>choose to continue on with the 3-D version.</p>
+				<p class="warningmessage critical">We want you to enjoy using Toyota Collaborator in the best way possible.<br> Click below to switch to the 2D version of the site <br> to enhance your experience.</p>
+				<p class="warningmessage firefox">We want you to enjoy using Toyota Collaborator in the best way possible.<br> We recommend using Google Chrome.</p>
+				<a class="warningaction warning critical firefox" href="#" id="switch-2d"><img src="https://securegh.toyota.com/app/images/twodbutton.jpg" /></a>
+				<a class="warningaction warning" href="#" id="switch-3d"><img src="https://securegh.toyota.com/app/images/threedbutton.jpg" /></a>
+				<a class="warningaction warning firefox" href="#" id="download-chrome"><img src="https://securegh.toyota.com/app/images/chromebutton.jpg" /></a>
+			</div>
+		</div>
+		<div id="dealer-timeout" class="modal-message mouse-enabled interface-element">
+			<a class="dealermodal-close" href="#"></a>
+			<h2>We couldn't connect with a dealer</h2>
+			<div id="dealer-timeout-message" class="modal-text">Your dealer can’t connect right now, but you can email them with questions or just return to building your Toyota.</div>
+			<br />
+			<img id="emailDealer" class="mouse-enabled" src="https://securegh.toyota.com/app/images/btn_dealer.png" />
+			&nbsp;&nbsp;
+			<img id="declineEmailDealer" class="dismissModals mouse-enabled" src="https://securegh.toyota.com/app/images/btn_nothanks.png" />
+		</div>
+		<div id="dealer-requested" class="modal-message mouse-enabled interface-element">
+			<a class="dealermodal-close" href="#"></a>
+			<h2>We've contacted a dealer</h2>
+			<div id="dealer-requested-message" class="modal-text">A local dealer will be joining your Hangout to chat in just a few minutes. <br />In the meantime, keep building your Toyota.</div>
+			<br />
+			<img id="keepBuilding" class="dismissModals mouse-enabled" src="https://securegh.toyota.com/app/images/btn_return.png" />
+		</div>
+		<div id="dealer-available" class="modal-message mouse-enabled interface-element">
+			<a class="dealermodal-close" href="#"></a>
+			<h2>A dealer is available</h2>
+			<div id="dealer-available-message" class="modal-text"></div>
+			<br />
+			<img id="completeHangoutRequest" class="mouse-enabled" src="https://securegh.toyota.com/app/images/btn_hangoutnow.png" />
+			&nbsp;&nbsp;
+			<img id="ignoreHangout" class="dismissModals mouse-enabled" src="https://securegh.toyota.com/app/images/btn_nothanks.png" />
+		</div>
+		<div id="preloader" class="startpage"></div>
+		<div id="preloader_percentage" class="startpage">
+		    <div id="preload_text">
+		    	0%
+		    </div>
+		    <div id="preload_bar">
+		    	<div id="preload_loader">
+		    		
+		    	</div>
+		    </div>
+		</div>
+		<div id="preloader_hyperlapse" style="display:none;">
+		    <div id="preload_text">
+		    	0%
+		    </div>
+		    <div id="preload_bar">
+		    	<div id="preload_loader">
+		    		
+		    	</div>
+		    </div>
+		    <div id="hyperlapse_cancel" class="mouse-enabled">
+		    </div>
+		</div>
+		<div id="preloader_text" class="startpage"></div>
+		<div id="fb-root"></div>
+		<iframe src="about:blank" width="1" height="1" allowtransparency="true" id="analyticsplugs" frameborder="0"></iframe>
+		<iframe src="about:blank" width="1" height="1" allowtransparency="true" id="analyticsviews" frameborder="0"></iframe>
+		<iframe src="https://securegh.toyota.com/app/views/ajaxserver/" width="1" height="1" allowtransparency="true" id="ajaxserver" frameborder="0"></iframe>
+		<script type="text/javascript">
+		  (function() {
+		   var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+		   po.src = 'https://apis.google.com/js/client:plusone.js';
+		   var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+		 })();
+		</script>
+		<script>
+		  // Additional JS functions here
+		  window.fbAsyncInit = function() {
+		    FB.init({
+		      appId      : '378541969879', // App ID
+		      channelUrl : '//securegh.toyota.com/app/channel.html', // Channel File
+		      status     : true, // check login status
+		      cookie     : true, // enable cookies to allow the server to access the session
+		      xfbml      : true  // parse XFBML
+		    });
+		
+		    // Additional init code here
+		
+		  };
+		
+		  // Load the SDK asynchronously
+		  (function(d){
+		     var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+		     if (d.getElementById(id)) {return;}
+		     js = d.createElement('script'); js.id = id; js.async = true;
+		     js.src = "//connect.facebook.net/en_US/all.js";
+		     ref.parentNode.insertBefore(js, ref);
+		   }(document));
+		   
+		   function FBPost(_name,_link,_picture,_caption,_description){
+			   FB.ui(
+				  {
+				    method: 'feed',
+				    name: _name,
+				    link: _link,
+				    picture: _picture,
+				    caption: _caption,
+				    description: _description
+				  },
+				  function(response) {
+				    if (response && response.post_id) {
+				      //alert('Post was published.');
+				    } else {
+				      //alert('Post was not published.');
+				    }
+				  }
+				);
+		   }
+		</script>
+		<script>
+		
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+			
+			ga('create', 'UA-44144513-1', 'googleusercontent.com');
+			ga('send', 'pageview');
+		
+		</script>
+	</body>
+</html>
+
+]]>
+</Content>
+</Module>
