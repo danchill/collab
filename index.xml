@@ -25,7 +25,7 @@
 		
 		<!-- FRAME COMMUNICATION -->
 		<script>var DAEMON_RECEIVER_ID = "root";</script>
-		<script src="https://raw.githubusercontent.com/danchill/collab/master/communicate.js"></script>
+		<script src="https://helpmemarch.org/communicate.js"></script>
 		
 		<!-- PLUGINS -->
 		<script src="https://securegh.toyota.com/app/scripts/vendor/jquery.easing.js"></script>
